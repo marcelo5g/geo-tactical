@@ -397,6 +397,25 @@
   </div>
 
   <script>
+    function alternarTelaCheia() {
+      const elem = document.documentElement;
+    
+      // Verifica se o navegador suporta a API
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen().catch(err => {
+          // Se o Google Sites/iframe bloquear a tela cheia, cai aqui:
+          console.warn("Tela cheia bloqueada pelo iframe. Abrindo em nova aba para permitir Tela Cheia.");
+          window.open(window.location.href, '_blank');
+        });
+      } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+      } else {
+        // Caso não haja suporte, abre direto em nova aba
+        window.open(window.location.href, '_blank');
+      }
+    }
+
+    
     // Fullscreen Toggle Handler
     function toggleFullscreen() {
       if (!document.fullscreenElement && !document.webkitFullscreenElement) {
